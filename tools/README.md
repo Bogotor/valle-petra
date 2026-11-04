@@ -14,3 +14,9 @@ pip install fonttools uharfbuzz skia-pathops brotli numpy scipy pillow
 | `fotos-simuladas/render.py` | Renders ficticios (cielo, cerros, domos, cabañas, piscina…). | `fotos-simuladas/out/` |
 
 Las carpetas `out/` no se suben al repo: se regeneran.
+
+## prompts/
+
+| Prompt | Para qué | Cuándo usarlo |
+| --- | --- | --- |
+| `prompts/brand-dna-valle-petra.md` | Genera `design.md`, la guía visual para crear piezas nuevas (web, Instagram, impresos, fotografía). | Cuando la landing esté en código y las fotos reales estén elegidas. **Todavía no se ha corrido.** |
