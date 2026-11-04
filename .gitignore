@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+._*
+
+# Fotos originales: van fuera del repo
+fotos-originales/
+*.dng
+*.DNG
+*.heic
+*.HEIC
+*.raw
+*.RAW
+
+# Salidas regenerables de los scripts
+tools/**/out/
+tools/logo/fonts/Fraunces-VP.ttf
+
+# Python / Node
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+
+# Editores
+.vscode/
+.idea/
