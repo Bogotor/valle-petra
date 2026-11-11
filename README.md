@@ -33,11 +33,11 @@ valle-petra/
 ## Trabajar en tu computador
 
 ```bash
-mkdir -p ~/Proyectos/"Valle Petra" && cd ~/Proyectos/"Valle Petra"
+mkdir -p ~/Developer/portafolio && cd ~/Developer/portafolio
 git clone https://github.com/Bogotor/valle-petra.git
 ```
 
-Las fotos originales (ProRAW/HEIC) se guardan **fuera** del repo, por ejemplo en `~/Proyectos/Valle Petra/fotos-originales/`.
+Las fotos originales (ProRAW/HEIC) se guardan **fuera** del repo, por ejemplo en `~/Developer/portafolio/valle-petra-fotos-originales/`.
 
 ## Licencias
 
