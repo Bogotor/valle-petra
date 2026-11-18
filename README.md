@@ -11,8 +11,8 @@ Sitio web y marca de **Valle Petra**, refugio boutique entre piedra y cielo en V
 | --- | --- |
 | Logo e identidad | Listo (`brand/`) |
 | Diseño de la landing | Listo como referencia (`design/claude-design/`) |
-| Landing en código limpio | Por hacer (`site/`) |
-| Fotos reales | En selección |
+| Landing en código limpio | Lista (`site/`); faltan precios, capacidad y m² |
+| Fotos reales | Interiores listos; faltan frontis, piscina, quincho, fogón y tinas (hay provisorias marcadas) |
 | Publicación | Pendiente (GitHub Pages) |
 
 ## Estructura

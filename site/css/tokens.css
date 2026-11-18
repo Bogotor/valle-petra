@@ -1,0 +1,53 @@
+/* Valle Petra — tokens de diseño.
+   Paleta de marca: brand/FICHA-TECNICA.md.
+   El modo se elige con html[data-theme="light" | "dark"] (lo fija js/tema.js). */
+
+:root {
+  /* Paleta de marca */
+  --adobe: #AA4529;        /* letras del logo en claro, acento principal */
+  --adobe-dark: #A03E25;   /* adobe de apoyo, hover */
+  --cream: #FDEEDD;        /* fondo en claro */
+  --gold: #E0AF7F;         /* estrella del logo en claro */
+  --ink: #2A1F1A;          /* texto oscuro */
+  --ink-soft: #5a4a40;
+  --night: #111832;        /* fondo en oscuro */
+  --ivory: #EEEDF0;        /* letras en oscuro */
+  --gold-soft: #D6B98B;    /* oro arena */
+  --gold-bright: #E9CA94;  /* estrella del logo en oscuro y sobre terracota */
+  --on-photo: #fbeed9;     /* texto crema sobre fotos, en ambos modos */
+
+  /* Tipografía */
+  --font-serif: 'Fraunces', 'Georgia', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Semánticos — modo claro */
+  --bg: var(--cream);
+  --fg: var(--ink);
+  --fg-soft: var(--ink-soft);
+  --accent: var(--adobe);
+  --accent-hover: var(--adobe-dark);
+  --surface: #fff7ec;
+  --surface-2: #fbe5cf;
+  --line-c: rgba(42, 31, 26, .12);
+  /* Menú al bajar: casi opaco, sin desenfoque de fondo */
+  --header-bg: rgba(253, 238, 221, 0.96);
+
+  /* Logo */
+  --logo-ink: #AA4529;
+  --logo-star: #E0AF7F;
+}
+
+html[data-theme="dark"] {
+  --bg: var(--night);
+  --fg: var(--ivory);
+  --fg-soft: rgba(238, 237, 240, 0.68);
+  --accent: var(--gold-soft);
+  --accent-hover: var(--gold-bright);
+  --surface: #161e3b;
+  --surface-2: #1c2547;
+  --line-c: rgba(238, 237, 240, .10);
+  --header-bg: rgba(17, 24, 50, 0.96);
+
+  --logo-ink: #EEEDF0;
+  --logo-star: #E9CA94;
+}
