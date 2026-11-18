@@ -1,0 +1,22 @@
+# Cabeceras de seguridad para Cloudflare Pages. Se aplican a todo el sitio.
+# Cloudflare lee este archivo al publicar y no lo sirve como página.
+# Para probarlas en tu computador: python3 tools/web/servidor.py
+#
+# Content-Security-Policy: el navegador solo carga scripts, estilos, fuentes e
+#   imágenes del propio sitio, y solo permite el iframe del mapa de Google. Si
+#   alguien lograra inyectar un <script>, el navegador no lo ejecutaría.
+#   frame-ancestors 'none': ningún otro sitio puede mostrar esta página dentro
+#   de un iframe (evita el clickjacking).
+# X-Frame-Options: lo mismo que frame-ancestors, para navegadores antiguos.
+# X-Content-Type-Options: el navegador respeta el tipo de cada archivo y no
+#   adivina (un .webp no se puede ejecutar como script).
+# Referrer-Policy: a otros sitios (WhatsApp, Instagram, Google) solo se les
+#   dice el dominio de origen, no la dirección completa.
+# Permissions-Policy: apaga cámara, micrófono, ubicación, pagos y USB, que la
+#   página no usa, también para el iframe del mapa.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()

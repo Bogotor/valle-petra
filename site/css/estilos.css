@@ -332,10 +332,12 @@ header.site.scrolled .theme-toggle .icon-moon-bg,
 header.site.menu-abierto .theme-toggle .icon-moon-bg { color: var(--accent); }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; }
-.nav-links { display: none; align-items: center; gap: 36px; }
+/* Separación de 36 px en escritorio grande; se achica en pantallas angostas para que quepan los 6 ítems */
+.nav-links { display: none; align-items: center; gap: clamp(20px, 2.6vw, 36px); }
 .nav-links a {
   font-size: 14px; color: var(--fg); opacity: .82;
   position: relative; padding-block: 6px;
+  white-space: nowrap; /* "El valle" no se parte en dos líneas */
   transition: opacity .25s ease;
 }
 .nav-links a:hover { opacity: 1; }

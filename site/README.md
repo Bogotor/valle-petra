@@ -16,6 +16,7 @@ site/
 │   └── galerias.js       carrusel de cada alojamiento y visor de galería
 ├── fonts/                woff2 recortadas a latín
 ├── img/                  WebP sin metadatos (los genera tools/web/recursos.py)
+├── _headers              cabeceras de seguridad que aplica Cloudflare Pages (no se publica)
 └── favicon.*, site.webmanifest
 ```
 
@@ -26,6 +27,21 @@ python3 -m http.server 8765 --directory site
 ```
 
 Luego abre `http://localhost:8765`.
+
+Para probarlo con las cabeceras de seguridad de `_headers`, como quedará en Cloudflare:
+
+```bash
+python3 tools/web/servidor.py
+```
+
+Abre `http://127.0.0.1:8766`. Si la Content-Security-Policy bloquea algo, el navegador lo avisa en la consola ("Refused to load…").
+
+## Cabeceras de seguridad
+
+Están en `_headers`, cada una explicada en el propio archivo. La CSP solo permite archivos del propio sitio y el iframe del mapa de Google. Por eso:
+
+- No agregues `<script>` ni `style="…"` dentro del HTML: van en `js/` y `css/`.
+- Si sumas un servicio externo (por ejemplo, un motor de reservas o un video), hay que agregar su dominio a la directiva que corresponda (`script-src`, `frame-src`, `img-src`…).
 
 ## Fotos
 
@@ -56,6 +72,11 @@ Llevan `data-pendiente` en el HTML y se muestran entre corchetes:
 
 - `[precio]` por noche de cada alojamiento. El diseño decía desde $80.000 (Chañar desde $120.000); otra fuente, $100.000–$150.000.
 - `[capacidad]` y `[m²]` de cada alojamiento.
+
+## Antes de lanzar
+
+- `index.html` lleva `<meta name="robots" content="noindex">` para que los buscadores no muestren el sitio mientras tenga fotos provisorias y datos pendientes. Quítalo cuando esté listo para clientes.
+- No bloquees el sitio con `robots.txt` (`Disallow`): el buscador dejaría de leer la página y no vería el `noindex`.
 
 ## Reglas
 
