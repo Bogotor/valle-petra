@@ -307,7 +307,6 @@ header.site .theme-toggle {
   border-color: rgba(251,238,217,.5);
 }
 header.site .theme-toggle .icon-track { color: rgba(251,238,217,.7); }
-header.site .theme-toggle .icon-moon-bg { color: rgba(251,238,217,.9); }
 
 header.site.scrolled {
   background: var(--header-bg);
@@ -328,8 +327,6 @@ header.site.menu-abierto .theme-toggle {
 }
 header.site.scrolled .theme-toggle .icon-track,
 header.site.menu-abierto .theme-toggle .icon-track { color: var(--fg-soft); }
-header.site.scrolled .theme-toggle .icon-moon-bg,
-header.site.menu-abierto .theme-toggle .icon-moon-bg { color: var(--accent); }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; }
 /* Separación de 36 px en escritorio grande; se achica en pantallas angostas para que quepan los 6 ítems */
@@ -391,15 +388,19 @@ html[data-theme="dark"] .theme-toggle .thumb {
   color: var(--fg-soft);
 }
 .theme-toggle .icon-track svg { width: 13px; height: 13px; }
-.theme-toggle .icon-sun-bg { opacity: .4; }
-.theme-toggle .icon-moon-bg { opacity: .9; color: var(--accent); }
-html[data-theme="dark"] .theme-toggle .icon-sun-bg { opacity: .9; color: var(--gold-bright); }
-html[data-theme="dark"] .theme-toggle .icon-moon-bg { opacity: .4; }
+/* La bolita muestra el modo ACTUAL (sol de día, a la izquierda; luna de noche, a la derecha).
+   En el riel solo se ve, tenue, el modo al que se puede cambiar; el ícono que queda bajo la
+   bolita se oculta para que no se repita el mismo dibujo dos veces. */
+.theme-toggle .icon-track svg { transition: opacity .3s ease; }
+.theme-toggle .icon-sun-bg { opacity: 0; }
+.theme-toggle .icon-moon-bg { opacity: .55; }
+html[data-theme="dark"] .theme-toggle .icon-sun-bg { opacity: .55; }
+html[data-theme="dark"] .theme-toggle .icon-moon-bg { opacity: 0; }
 
-.theme-toggle .thumb .icon-sun { display: none; }
-.theme-toggle .thumb .icon-moon { display: block; }
-html[data-theme="dark"] .theme-toggle .thumb .icon-sun { display: block; }
-html[data-theme="dark"] .theme-toggle .thumb .icon-moon { display: none; }
+.theme-toggle .thumb .icon-sun { display: block; }
+.theme-toggle .thumb .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .thumb .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .thumb .icon-moon { display: block; }
 
 /* First-time hint pulse on theme toggle */
 .theme-toggle.hint::after {
@@ -428,18 +429,50 @@ html[data-theme="dark"] .theme-toggle.hint::after { border-color: var(--gold-bri
   .menu-btn { display: none; }
 }
 
-/* Mobile menu */
+/* Menú de celular: secciones numeradas como en la página (01–06) en filas de ancho completo,
+   y abajo el botón de reserva y los contactos, para que la pantalla no quede vacía. */
 .mobile-menu {
   position: fixed; inset: 0; z-index: 90;
   background: var(--bg);
-  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-  padding: 100px clamp(20px, 5vw, 56px) 60px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
+  padding: 92px clamp(20px, 5vw, 56px) calc(28px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto; overscroll-behavior: contain;
   transform: translateY(-100%);
   transition: transform .55s cubic-bezier(.7,0,.2,1);
 }
 .mobile-menu.open { transform: translateY(0); }
-.mobile-menu a { font-family: var(--font-serif); font-size: clamp(28px, 7vw, 44px); padding-block: 10px; } /* más chico que antes (36–56 px): se lee como menú, no como título */
-.mobile-menu a + a { border-top: 1px solid var(--line-c); }
+.mm-links { display: flex; flex-direction: column; border-top: 1px solid var(--line-c); }
+.mm-links a {
+  display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 6px;
+  min-height: 58px; padding-block: 10px;
+  border-bottom: 1px solid var(--line-c);
+  font-family: var(--font-serif); font-size: clamp(24px, 6.4vw, 34px); line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.mm-num { font-family: var(--font-sans); font-size: 11px; letter-spacing: .14em; color: var(--accent); font-weight: 500; }
+.mm-links svg { width: 16px; height: 16px; color: var(--fg-soft); transition: transform .3s ease, color .3s ease; }
+.mm-links a:active svg, .mm-links a:hover svg { transform: translateX(4px); color: var(--accent); }
+.mm-links a[aria-current="page"] .mm-txt { color: var(--accent); }
+.mm-foot { display: flex; flex-direction: column; gap: 18px; }
+.mobile-menu .mm-cta { justify-content: center; padding: 14px 24px; font-size: 17px; }
+.mobile-menu .mm-cta svg { width: 18px; height: 18px; }
+.mm-redes { display: flex; flex-wrap: wrap; gap: 4px 28px; }
+.mm-redes a {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+  font-size: 14px; color: var(--fg-soft);
+}
+.mm-redes svg { width: 16px; height: 16px; color: var(--accent); }
+.mm-lugar { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-soft); }
+/* Entrada escalonada de las filas al abrir */
+.mm-links a, .mm-foot { opacity: 0; transform: translateY(10px); transition: opacity .4s ease, transform .4s ease; }
+.mobile-menu.open .mm-links a, .mobile-menu.open .mm-foot { opacity: 1; transform: none; }
+.mobile-menu.open .mm-links a:nth-child(1) { transition-delay: .18s; }
+.mobile-menu.open .mm-links a:nth-child(2) { transition-delay: .22s; }
+.mobile-menu.open .mm-links a:nth-child(3) { transition-delay: .26s; }
+.mobile-menu.open .mm-links a:nth-child(4) { transition-delay: .30s; }
+.mobile-menu.open .mm-links a:nth-child(5) { transition-delay: .34s; }
+.mobile-menu.open .mm-links a:nth-child(6) { transition-delay: .38s; }
+.mobile-menu.open .mm-foot { transition-delay: .44s; }
 
 /* ---------- Buttons ---------- */
 .btn {
