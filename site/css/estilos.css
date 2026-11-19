@@ -429,50 +429,50 @@ html[data-theme="dark"] .theme-toggle.hint::after { border-color: var(--gold-bri
   .menu-btn { display: none; }
 }
 
-/* Menú de celular: secciones numeradas como en la página (01–06) en filas de ancho completo,
-   y abajo el botón de reserva y los contactos, para que la pantalla no quede vacía. */
+/* Menú de celular: todo centrado y sin líneas; la estrella de la marca separa las secciones
+   (arriba) del botón de reserva y los contactos (abajo, al alcance del pulgar). */
 .mobile-menu {
   position: fixed; inset: 0; z-index: 90;
   background: var(--bg);
-  display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
   padding: 92px clamp(20px, 5vw, 56px) calc(28px + env(safe-area-inset-bottom, 0px));
   overflow-y: auto; overscroll-behavior: contain;
+  text-align: center;
   transform: translateY(-100%);
   transition: transform .55s cubic-bezier(.7,0,.2,1);
 }
 .mobile-menu.open { transform: translateY(0); }
-.mm-links { display: flex; flex-direction: column; border-top: 1px solid var(--line-c); }
+.mm-links { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
 .mm-links a {
-  display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 6px;
-  min-height: 58px; padding-block: 10px;
-  border-bottom: 1px solid var(--line-c);
-  font-family: var(--font-serif); font-size: clamp(24px, 6.4vw, 34px); line-height: 1.1;
-  letter-spacing: -0.01em;
+  display: inline-flex; align-items: center; justify-content: center; min-height: 52px;
+  font-family: var(--font-serif); font-size: clamp(26px, 7vw, 36px); line-height: 1.1;
+  letter-spacing: -0.01em; color: var(--fg);
+  transition: color .25s ease;
 }
-.mm-num { font-family: var(--font-sans); font-size: 11px; letter-spacing: .14em; color: var(--accent); font-weight: 500; }
-.mm-links svg { width: 16px; height: 16px; color: var(--fg-soft); transition: transform .3s ease, color .3s ease; }
-.mm-links a:active svg, .mm-links a:hover svg { transform: translateX(4px); color: var(--accent); }
-.mm-links a[aria-current="page"] .mm-txt { color: var(--accent); }
-.mm-foot { display: flex; flex-direction: column; gap: 18px; }
-.mobile-menu .mm-cta { justify-content: center; padding: 14px 24px; font-size: 17px; }
+.mm-links a:active, .mm-links a[aria-current="page"] { color: var(--accent); }
+.mm-star { width: 14px; height: 14px; fill: var(--logo-star); flex: none; }
+.mm-foot { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.mobile-menu .mm-cta { width: 100%; justify-content: center; padding: 14px 24px; font-size: 17px; }
 .mobile-menu .mm-cta svg { width: 18px; height: 18px; }
-.mm-redes { display: flex; flex-wrap: wrap; gap: 4px 28px; }
+.mm-redes { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 32px; }
 .mm-redes a {
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
-  font-size: 14px; color: var(--fg-soft);
+  font-size: 14px; color: var(--fg-soft); transition: color .25s ease;
 }
+.mm-redes a:active { color: var(--accent); }
 .mm-redes svg { width: 16px; height: 16px; color: var(--accent); }
-.mm-lugar { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-soft); }
+.mm-lugar { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg-soft); }
 /* Entrada escalonada de las filas al abrir */
-.mm-links a, .mm-foot { opacity: 0; transform: translateY(10px); transition: opacity .4s ease, transform .4s ease; }
-.mobile-menu.open .mm-links a, .mobile-menu.open .mm-foot { opacity: 1; transform: none; }
+.mm-links a, .mm-star, .mm-foot { opacity: 0; transform: translateY(10px); transition: opacity .4s ease, transform .4s ease; }
+.mobile-menu.open .mm-links a, .mobile-menu.open .mm-star, .mobile-menu.open .mm-foot { opacity: 1; transform: none; }
 .mobile-menu.open .mm-links a:nth-child(1) { transition-delay: .18s; }
 .mobile-menu.open .mm-links a:nth-child(2) { transition-delay: .22s; }
 .mobile-menu.open .mm-links a:nth-child(3) { transition-delay: .26s; }
 .mobile-menu.open .mm-links a:nth-child(4) { transition-delay: .30s; }
 .mobile-menu.open .mm-links a:nth-child(5) { transition-delay: .34s; }
 .mobile-menu.open .mm-links a:nth-child(6) { transition-delay: .38s; }
-.mobile-menu.open .mm-foot { transition-delay: .44s; }
+.mobile-menu.open .mm-star { transition-delay: .42s; }
+.mobile-menu.open .mm-foot { transition-delay: .46s; }
 
 /* ---------- Buttons ---------- */
 .btn {
