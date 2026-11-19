@@ -68,10 +68,7 @@ if __name__ == "__main__":
     with open(f"{OUT}/_tile-cuadrado.svg", "w") as f:
         f.write(svg_tile(0))  # iOS y Android aplican su propia máscara
 
-    for s in (16, 32, 48):
-        png(f"{OUT}/_tile-redondeado.svg", s, f"{OUT}/_ico-{s}.png")
-    subprocess.run(["convert", f"{OUT}/_ico-16.png", f"{OUT}/_ico-32.png", f"{OUT}/_ico-48.png",
-                    f"{OUT}/favicon.ico"], check=True)
+    # favicon.ico ya no sale de aquí: lo genera tools/web/favicon_ico.py (estrella sola, sin fondo)
 
     png(f"{OUT}/_tile-cuadrado.svg", 180, f"{OUT}/apple-touch-icon.png")
     png(f"{OUT}/_tile-cuadrado.svg", 192, f"{OUT}/icon-192.png")
