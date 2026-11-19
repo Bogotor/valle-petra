@@ -54,6 +54,7 @@ Las genera `tools/web/recursos.py` (ver `tools/README.md`). Todas quedan sin EXI
 | `img/espacios/` | Fotos reales de espacios comunes (por ahora, una de los jardines) |
 | `img/provisorias/` | **Fotos de stock del diseño. No son de Valle Petra.** |
 | `img/deco/` | Iconografía diaguita del fondo (solo modo claro) |
+| `img/compartir.png` | Vista previa al compartir el enlace: logo sobre terracota, 1200 × 630 (la genera `tools/web/compartir.py`) |
 
 ### Fotos provisorias
 
@@ -77,6 +78,10 @@ Llevan `data-pendiente` en el HTML y se muestran entre corchetes:
 
 - `index.html` lleva `<meta name="robots" content="noindex">` para que los buscadores no muestren el sitio mientras tenga fotos provisorias y datos pendientes. Quítalo cuando esté listo para clientes.
 - No bloquees el sitio con `robots.txt` (`Disallow`): el buscador dejaría de leer la página y no vería el `noindex`.
+
+## Al conectar el dominio propio
+
+Las etiquetas `og:url` y `og:image` del `<head>` usan direcciones absolutas con `valle-petra.pages.dev`, porque WhatsApp e iMessage no aceptan rutas relativas. Cámbialas por el dominio nuevo. Las apps guardan la vista previa de cada enlace por un tiempo: para probar un cambio, comparte una variante como `…/?v=2`.
 
 ## Reglas
 

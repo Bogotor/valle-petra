@@ -12,6 +12,7 @@ pip install fonttools uharfbuzz skia-pathops brotli numpy scipy pillow
 | `logo/favicon.py` | Set de favicon con la estrella (requiere `rsvg-convert` e ImageMagick). | `logo/out/favicon/` |
 | `web/patch.py` | Aplica la marca al export "Standalone" de Claude Design. | `design/claude-design/valle-petra-marca.html` |
 | `web/recursos.py` | Recursos de la landing: fotos reales (ProRAW/JPG/PNG) y del paquete del diseño a WebP en sRGB, sin EXIF ni GPS (lo verifica con `webpinfo`), más fuentes y favicon. Uso: `python3 -I tools/web/recursos.py --originales ../valle-petra-fotos-originales`. Requiere macOS (`sips`) y `brew install webp`. | `site/img/`, `site/fonts/`, favicon |
+| `web/compartir.py` | Imagen de vista previa al compartir el enlace (Open Graph): logo apilado sobre terracota, 1200 × 630, PNG sin metadatos. Uso: `python3 tools/web/compartir.py`. Requiere macOS (`sips`). | `site/img/compartir.png` |
 | `web/servidor.py` | Servidor local (solo `127.0.0.1`) que sirve `site/` aplicando las cabeceras de `site/_headers`, como Cloudflare Pages. Para probar la CSP antes de publicar. Uso: `python3 tools/web/servidor.py`. | `http://127.0.0.1:8766` |
 | `fotos-simuladas/render.py` | Renders ficticios (cielo, cerros, domos, cabañas, piscina…). | `fotos-simuladas/out/` |
 
