@@ -438,7 +438,7 @@ html[data-theme="dark"] .theme-toggle.hint::after { border-color: var(--gold-bri
   transition: transform .55s cubic-bezier(.7,0,.2,1);
 }
 .mobile-menu.open { transform: translateY(0); }
-.mobile-menu a { font-family: var(--font-serif); font-size: clamp(36px, 8vw, 56px); padding-block: 8px; }
+.mobile-menu a { font-family: var(--font-serif); font-size: clamp(28px, 7vw, 44px); padding-block: 10px; } /* más chico que antes (36–56 px): se lee como menú, no como título */
 .mobile-menu a + a { border-top: 1px solid var(--line-c); }
 
 /* ---------- Buttons ---------- */
@@ -1402,9 +1402,9 @@ body.lb-open { overflow: hidden; }
   font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600;
   color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 6px 12px;
 }
-/* Contorno de acento solo al interactuar: mouse encima (ver .resv-card:hover), toque en celular
-   (:active) o foco con teclado dentro de la tarjeta (:focus-within) */
-.resv-card:active, .resv-card:focus-within { border-color: var(--accent); }
+/* Contorno de acento solo en computador: mouse encima (ver .resv-card:hover) o foco con teclado
+   (:focus-visible; al tocar en el celular no se activa). En pantallas táctiles no aparece. */
+.resv-card:has(:focus-visible) { border-color: var(--accent); }
 /* Botones al pie de cada tarjeta, alineados entre tarjetas */
 .canal-btn, .canal-pronto { margin-top: auto; align-self: flex-start; }
 .canal .wa-btn { padding: 12px 22px; gap: 12px; font-size: 16px; } /* 46 px de alto */

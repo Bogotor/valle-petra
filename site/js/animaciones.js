@@ -87,11 +87,6 @@
     mover();
   }
 
-  // ===== iOS: activa :active al tocar =====
-  // Safari en iPhone no aplica :active a elementos que no son enlaces si la página no
-  // escucha toques; este oyente vacío basta (lo usan las tarjetas de reservas).
-  document.addEventListener('touchstart', function () {}, { passive: true });
-
   // ===== Año del pie =====
   var anio = document.getElementById('year');
   if (anio) anio.textContent = new Date().getFullYear();
