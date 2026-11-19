@@ -24,7 +24,7 @@ Ajustes propios:
 
 `build.py` reproduce el logo exacto.
 
-Tipografía complementaria: Fraunces en títulos, Inter o Manrope en cuerpo.
+Tipografía complementaria: Fraunces en títulos (y el lema, en cursiva), Figtree en cuerpo.
 
 ## Colores (hex, pantalla)
 

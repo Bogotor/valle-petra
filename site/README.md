@@ -7,7 +7,7 @@ Se pasó desde `design/claude-design/valle-petra-marca.html` (diseño aprobado) 
 site/
 ├── index.html            toda la página; las tarjetas y galerías están escritas en el HTML
 ├── css/
-│   ├── fuentes.css       Fraunces (con SOFT/WONK) e Inter, alojadas en fonts/
+│   ├── fuentes.css       Fraunces (con SOFT/WONK) y Figtree, alojadas en fonts/
 │   ├── tokens.css        colores de marca y de modo claro/oscuro, tipografías
 │   └── estilos.css       estilos por sección, en el orden de la página
 ├── js/

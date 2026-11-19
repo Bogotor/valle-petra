@@ -27,7 +27,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- Type ---------- */
 h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; font-style: normal; letter-spacing: -0.02em; line-height: 1.05; margin: 0; text-wrap: balance; }
 /* Fraunces con los ejes SOFT y WONK, como en el logo */
-h1, h2, h3, h4, .hero-quote {
+h1, h2, h3, h4, .hero-sub, .hero-quote {
   font-variation-settings: 'SOFT' 100, 'WONK' 1;
   font-optical-sizing: auto;
 }
@@ -531,9 +531,12 @@ html[data-theme="dark"] .hero-bg::after {
   color: var(--on-photo);
   text-shadow: 0 2px 24px rgba(20,12,8,.55), 0 1px 2px rgba(20,12,8,.4);
 }
+/* Lema en Fraunces cursiva: más evocador que el texto corrido; algo más grande y claro que la cita de abajo */
 .hero-sub {
   margin-top: 28px; margin-inline: auto;
-  font-size: clamp(18px, 1.6vw, 22px);
+  font-family: var(--font-serif); font-style: italic; font-weight: 350;
+  font-size: clamp(21px, 2vw, 27px);
+  line-height: 1.25;
   color: rgba(251,238,217,.92);
   max-width: 36ch;
   text-shadow: 0 1px 14px rgba(20,12,8,.55);
@@ -684,8 +687,11 @@ html[data-theme="light"] .hero-cta-hint { color: var(--ink); text-shadow: none; 
   transition: transform .5s cubic-bezier(.2,.8,.2,1), border-color .3s ease, background-color .3s ease, box-shadow .5s cubic-bezier(.2,.8,.2,1);
 }
 html[data-theme="dark"] .lodge { box-shadow: 0 8px 24px rgba(0,0,0,.28), 0 2px 6px rgba(0,0,0,.18); }
-.lodge:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 28px 64px rgba(42,31,26,.18), 0 4px 12px rgba(42,31,26,.08); }
-html[data-theme="dark"] .lodge:hover { box-shadow: 0 28px 64px rgba(0,0,0,.5), 0 4px 12px rgba(0,0,0,.3); }
+/* Solo con mouse: en pantallas táctiles iOS gasta el primer toque en activar el :hover y no abre la galería */
+@media (hover: hover) {
+  .lodge:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 28px 64px rgba(42,31,26,.18), 0 4px 12px rgba(42,31,26,.08); }
+  html[data-theme="dark"] .lodge:hover { box-shadow: 0 28px 64px rgba(0,0,0,.5), 0 4px 12px rgba(0,0,0,.3); }
+}
 .lodge-img {
   aspect-ratio: 4/3;
   overflow: hidden; position: relative;
@@ -702,24 +708,33 @@ html[data-theme="dark"] .lodge:hover { box-shadow: 0 28px 64px rgba(0,0,0,.5), 0
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 1.4s cubic-bezier(.2,.8,.2,1);
 }
-.lodge:hover .lodge-img .lodge-track img { transform: scale(1.04); }
+/* Solo con mouse (ver .lodge:hover) */
+@media (hover: hover) {
+  .lodge:hover .lodge-img .lodge-track img { transform: scale(1.04); }
+}
 
 .lodge-nav {
+  /* Siempre visibles (en celular no existe el "pasar el mouse"), una a cada lado de la foto.
+     Fondo oscuro + borde crema: se distinguen sobre fotos claras y oscuras. 44 px = área táctil mínima. */
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 36px; height: 36px;
+  width: 44px; height: 44px;
+  padding: 0;
   border-radius: 999px;
+  border: 1px solid rgba(251,238,217,.45);
   background: rgba(20,12,8,.55);
   color: var(--on-photo);
   display: inline-flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity .25s ease, background-color .25s ease;
+  box-shadow: 0 2px 10px rgba(20,12,8,.35);
+  cursor: pointer;
+  transition: background-color .25s ease, border-color .25s ease, transform .25s ease;
   z-index: 3;
 }
-.lodge-img:hover .lodge-nav,
-.lodge-nav:focus-visible { opacity: 1; }
-.lodge-nav:hover { background: rgba(20,12,8,.75); }
+.lodge-nav:hover { background: rgba(20,12,8,.8); border-color: var(--on-photo); }
+.lodge-nav:active { transform: translateY(-50%) scale(.94); }
+.lodge-nav:focus-visible { outline: 2px solid var(--on-photo); outline-offset: 3px; }
 .lodge-nav.prev { left: 12px; }
 .lodge-nav.next { right: 12px; }
-.lodge-nav svg { width: 14px; height: 14px; }
+.lodge-nav svg { width: 18px; height: 18px; }
 
 .lodge-dots {
   position: absolute; bottom: 12px; left: 0; right: 0;
@@ -801,7 +816,10 @@ html[data-theme="dark"] .lodge:hover { box-shadow: 0 28px 64px rgba(0,0,0,.5), 0
   transition: background-color .35s ease;
   pointer-events: none;
 }
-.lodge-img.clickable:hover::after { background: rgba(20,12,8,.08); }
+/* Solo con mouse (ver .lodge:hover) */
+@media (hover: hover) {
+  .lodge-img.clickable:hover::after { background: rgba(20,12,8,.08); }
+}
 
 .lodge-note {
   margin-top: 32px;
@@ -852,9 +870,12 @@ html[data-theme="dark"] .m-block { box-shadow: 0 10px 28px rgba(0,0,0,.35), 0 3p
 @media (min-width: 720px) { .m-block { aspect-ratio: auto; } }
 .m-block img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(.2,.8,.2,1); }
 .m-block { transition: transform .55s cubic-bezier(.2,.8,.2,1), box-shadow .55s ease; }
-.m-block:hover { transform: translateY(-4px); box-shadow: 0 28px 64px rgba(42,31,26,.22), 0 4px 12px rgba(42,31,26,.10); }
-html[data-theme="dark"] .m-block:hover { box-shadow: 0 28px 64px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.32); }
-.m-block:hover img { transform: scale(1.07); }
+/* Solo con mouse (ver .lodge:hover) */
+@media (hover: hover) {
+  .m-block:hover { transform: translateY(-4px); box-shadow: 0 28px 64px rgba(42,31,26,.22), 0 4px 12px rgba(42,31,26,.10); }
+  html[data-theme="dark"] .m-block:hover { box-shadow: 0 28px 64px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.32); }
+  .m-block:hover img { transform: scale(1.07); }
+}
 .m-block::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(20,12,8,0) 50%, rgba(20,12,8,.7) 100%);
@@ -881,7 +902,10 @@ html[data-theme="dark"] .m-block:hover { box-shadow: 0 28px 64px rgba(0,0,0,.55)
   font-variant-numeric: tabular-nums;
 }
 .m-badge svg { width: 13px; height: 13px; }
-.m-block:hover .m-badge { background: var(--accent); color: var(--night); transform: translateY(-2px); }
+/* Solo con mouse (ver .lodge:hover) */
+@media (hover: hover) {
+  .m-block:hover .m-badge { background: var(--accent); color: var(--night); transform: translateY(-2px); }
+}
 
 /* ---------- Location ---------- */
 .loc-grid { display: grid; gap: 40px; grid-template-columns: 1fr; align-items: stretch; }
@@ -1340,14 +1364,15 @@ body.lb-open { overflow: hidden; }
 .js .reveal.in, .js .stagger.in > * { will-change: auto; }
 
 /* ---------- Áreas táctiles de al menos 44 px de alto, sin cambiar el aspecto ---------- */
-.menu-btn, .lodge-nav, .lodge-dots button, .lightbox-dots button,
+/* .lodge-nav no va aquí: ya mide 44 px y necesita position: absolute (con relative, las flechas
+   quedaban juntas en el centro de la foto) */
+.menu-btn, .lodge-dots button, .lightbox-dots button,
 .lodge-gallery-btn, .lodge-cta a, .wa-secondary { position: relative; }
-.menu-btn::before, .lodge-nav::before, .lodge-dots button::before, .lightbox-dots button::before,
+.menu-btn::before, .lodge-dots button::before, .lightbox-dots button::before,
 .lodge-gallery-btn::before, .lodge-cta a::before, .wa-secondary::before {
   content: ""; position: absolute;
 }
 .menu-btn::before { inset: -6px 0; }
-.lodge-nav::before { inset: -4px; border-radius: 999px; }
 /* los puntos están a 12 px del borde inferior de la foto, que recorta: el área crece hacia arriba */
 .lodge-dots button::before { inset: -26px -3px -12px; }
 .lightbox-dots button::before { inset: -19px -3px; }

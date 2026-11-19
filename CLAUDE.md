@@ -35,7 +35,7 @@ Este repo contiene el sitio web (landing de una página) y la identidad de marca
   - Modo oscuro: `#111832` / `#EEEDF0` / `#E9CA94`
   - Principal sobre terracota: `#AA4529` / `#FDEEDD` / `#E9CA94`
   - Apoyo: adobe `#A03E25`, oro arena `#D6B98B`, texto oscuro `#2A1F1A`.
-- **Tipografía:** Fraunces (OFL) en títulos con `font-variation-settings: 'SOFT' 100, 'WONK' 1` y `font-optical-sizing: auto`; Inter en texto. La Fraunces de Google Fonts "estática" no trae SOFT/WONK: usar la variable completa.
+- **Tipografía:** Fraunces (OFL) en títulos con `font-variation-settings: 'SOFT' 100, 'WONK' 1` y `font-optical-sizing: auto`; **Figtree** en texto (cambiada desde Inter el 2026-11-19 por ser muy neutra). El lema del encabezado va en Fraunces cursiva. La Fraunces de Google Fonts "estática" no trae SOFT/WONK: usar la variable completa.
 
 ## Decisiones técnicas
 - Landing de una sola página primero; multipágina más adelante.

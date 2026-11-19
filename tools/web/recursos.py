@@ -104,10 +104,8 @@ DECO = {
     "reservas-ave-anillada": "04634286-0e5d-465c-97f2-0963302040ee",
 }
 
-FUENTES = {
-    "inter-latin.woff2": "12df61d3-23be-4e50-9286-7ab6fd9fec1c",
-    "inter-latin-ext.woff2": "d3737a7c-f870-40be-8439-9c980cedfe19",
-}
+# Figtree (texto) vive en tools/web/, descargada de Google Fonts (variable 300–700, OFL)
+FUENTES = ("figtree-latin.woff2", "figtree-latin-ext.woff2")
 
 
 def run(*cmd):
@@ -261,13 +259,13 @@ def main():
             a_webp(png, os.path.join(img, f"deco/{nombre}.webp"), alfa=True)
         hechos.append(f"adornos ({len(DECO)})")
 
-        # 5. Fuentes: Fraunces completa (SOFT/WONK) desde tools/web e Inter desde el paquete
+        # 5. Fuentes desde tools/web: Fraunces completa (SOFT/WONK) y Figtree
         fuentes = os.path.join(a.salida, "fonts")
         os.makedirs(fuentes, exist_ok=True)
         shutil.copyfile(os.path.join(RAIZ, "tools/web/Fraunces-vp.woff2"), os.path.join(fuentes, "fraunces.woff2"))
         shutil.copyfile(os.path.join(RAIZ, "tools/web/Fraunces-Italic-vp.woff2"), os.path.join(fuentes, "fraunces-italic.woff2"))
-        for nombre, uuid in FUENTES.items():
-            shutil.copyfile(del_paquete(uuid, "woff2"), os.path.join(fuentes, nombre))
+        for nombre in FUENTES:
+            shutil.copyfile(os.path.join(RAIZ, "tools/web", nombre), os.path.join(fuentes, nombre))
         hechos.append("fuentes (4)")
 
         # 6. Favicon (estrella) con rutas relativas, para que funcione en GitHub Pages

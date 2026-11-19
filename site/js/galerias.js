@@ -42,14 +42,28 @@
       p.addEventListener('click', function () { ir(k); });
     });
 
-    // Deslizar con el dedo
-    var x0 = 0, dx = 0, arrastrando = false;
-    galeria.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; dx = 0; arrastrando = true; }, { passive: true });
-    galeria.addEventListener('touchmove', function (e) { if (arrastrando) dx = e.touches[0].clientX - x0; }, { passive: true });
-    galeria.addEventListener('touchend', function () {
-      if (arrastrando && Math.abs(dx) > 40) ir(idx + (dx < 0 ? 1 : -1));
+    // Con el dedo: deslizar cambia de foto; un toque (sin mover el dedo) abre el visor al tiro.
+    // Se abre aquí y no en el "click" porque en celular ese click a veces no llega al primer
+    // toque (el navegador lo gasta en efectos de :hover o lo pierde si la tarjeta se movió).
+    var x0 = 0, y0 = 0, dx = 0, dy = 0, arrastrando = false;
+    galeria.addEventListener('touchstart', function (e) {
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; dx = 0; dy = 0; arrastrando = true;
+    }, { passive: true });
+    galeria.addEventListener('touchmove', function (e) {
+      if (!arrastrando) return;
+      dx = e.touches[0].clientX - x0; dy = e.touches[0].clientY - y0;
+    }, { passive: true });
+    galeria.addEventListener('touchend', function (e) {
+      if (!arrastrando) return;
       arrastrando = false;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { ir(idx + (dx < 0 ? 1 : -1)); return; }
+      var esToque = Math.abs(dx) < 10 && Math.abs(dy) < 10;
+      if (esToque && !e.target.closest('.lodge-nav, .lodge-dots')) {
+        e.preventDefault(); // evita el click que vendría después y abriría el visor dos veces
+        abrirTarjeta(e.target);
+      }
     });
+    galeria.addEventListener('touchcancel', function () { arrastrando = false; });
   });
 
   // ===== Visor a pantalla completa =====
@@ -129,20 +143,26 @@
     if (disparador && typeof disparador.focus === 'function') disparador.focus();
   };
 
+  // Abre el visor de la tarjeta donde está t, en la foto que se está viendo
+  var abrirTarjeta = function (t) {
+    var tarjeta = t.closest('.lodge');
+    var galeria = tarjeta.querySelector('[data-gallery]');
+    abrir(
+      fotosDe(galeria.querySelectorAll('.lodge-track img')),
+      galeria.dataset.title,
+      parseInt(galeria.dataset.index || '0', 10),
+      t.closest('button') || tarjeta.querySelector('.lodge-gallery-btn')
+    );
+  };
+
   // Abrir: botón "Ver galería" o clic en la foto de una tarjeta; botón de un espacio
   document.addEventListener('click', function (e) {
     var t = e.target;
+    if (abierto) return;
     var enTarjeta = t.closest('[data-open-gallery], .lodge-img');
     if (enTarjeta) {
       if (t.closest('.lodge-nav, .lodge-dots')) return; // esos controles mueven el carrusel
-      var tarjeta = enTarjeta.closest('.lodge');
-      var galeria = tarjeta.querySelector('[data-gallery]');
-      abrir(
-        fotosDe(galeria.querySelectorAll('.lodge-track img')),
-        galeria.dataset.title,
-        parseInt(galeria.dataset.index || '0', 10),
-        t.closest('button') || tarjeta.querySelector('.lodge-gallery-btn')
-      );
+      abrirTarjeta(t);
       return;
     }
     var espacio = t.closest('[data-open-space]');
