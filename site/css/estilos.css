@@ -633,6 +633,15 @@ html[data-theme="light"] .hero-cta-hint { color: var(--ink); text-shadow: none; 
 }
 .hero .btn-outline:hover { background: var(--on-photo); color: var(--ink); border-color: var(--on-photo); }
 
+/* Celular: botones del encabezado más compactos (siguen sobre 44 px de alto) */
+@media (max-width: 600px) {
+  .hero .btn-reservar { padding: 13px 24px 13px 16px; gap: 12px; font-size: 16px; }
+  .hero .btn-reservar .pin { width: 24px; height: 24px; margin-right: 2px; }
+  .hero .btn-reservar .pin svg { width: 13px; height: 13px; }
+  .hero .btn-reservar .arrow { width: 16px; height: 16px; }
+  .hero .btn-outline { padding: 13px 22px; font-size: 13px; }
+}
+
 
 /* ---------- Pillars ---------- */
 .pillars { display: grid; grid-template-columns: 1fr; gap: 56px; margin-top: 32px; }
@@ -1057,6 +1066,11 @@ html[data-theme="dark"] .practical-item:hover .practical-icon { color: var(--nig
 html[data-theme="dark"] .wa-btn { color: var(--night); }
 .wa-btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 .wa-btn svg { width: 22px; height: 22px; }
+/* Celular: botón de Contacto más compacto (sigue sobre 44 px de alto) */
+@media (max-width: 600px) {
+  .wa-btn { padding: 13px 24px; gap: 12px; font-size: 16px; }
+  .wa-btn svg { width: 18px; height: 18px; }
+}
 
 .wa-secondary {
   display: inline-flex; align-items: center; gap: 10px;
