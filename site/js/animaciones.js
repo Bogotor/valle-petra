@@ -9,7 +9,9 @@
 
   // ===== Menú: fondo sólido al bajar =====
   var header = document.getElementById('siteHeader');
-  var alBajar = function () { header.classList.toggle('scrolled', window.scrollY > 24); };
+  // En páginas sin foto de encabezado (data-solido) el menú va siempre con fondo
+  var solido = header.hasAttribute('data-solido');
+  var alBajar = function () { header.classList.toggle('scrolled', solido || window.scrollY > 24); };
   alBajar();
   window.addEventListener('scroll', alBajar, { passive: true });
 
@@ -84,6 +86,11 @@
     window.addEventListener('scroll', mover, { passive: true });
     mover();
   }
+
+  // ===== iOS: activa :active al tocar =====
+  // Safari en iPhone no aplica :active a elementos que no son enlaces si la página no
+  // escucha toques; este oyente vacío basta (lo usan las tarjetas de reservas).
+  document.addEventListener('touchstart', function () {}, { passive: true });
 
   // ===== Año del pie =====
   var anio = document.getElementById('year');

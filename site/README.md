@@ -5,7 +5,8 @@ Se pasó desde `design/claude-design/valle-petra-marca.html` (diseño aprobado) 
 
 ```
 site/
-├── index.html            toda la página; las tarjetas y galerías están escritas en el HTML
+├── index.html            la portada; las tarjetas y galerías están escritas en el HTML
+├── reservas.html         canales oficiales de reserva (WhatsApp, Airbnb, Booking)
 ├── css/
 │   ├── fuentes.css       Fraunces (con SOFT/WONK) y Figtree, alojadas en fonts/
 │   ├── tokens.css        colores de marca y de modo claro/oscuro, tipografías
@@ -35,6 +36,14 @@ python3 tools/web/servidor.py
 ```
 
 Abre `http://127.0.0.1:8766`. Si la Content-Security-Policy bloquea algo, el navegador lo avisa en la consola ("Refused to load…").
+
+## Página de reservas
+
+Los botones "Reservar tu estadía" de la portada llevan a `reservas.html`. Usa los mismos CSS y `js/animaciones.js` (no `galerias.js`, porque no tiene galerías). Como no tiene foto de encabezado, su menú lleva `data-solido` y siempre se ve con fondo.
+
+- El menú, el menú de celular y el pie están **copiados** de `index.html`: si cambias uno, cambia el otro.
+- Airbnb y Booking muestran "Perfil próximamente". Cuando existan los perfiles, cambia el `<span class="canal-pronto">` por el enlace que está comentado justo arriba.
+- En Cloudflare, `reservas.html` también responde en `/reservas` (sin extensión).
 
 ## Cabeceras de seguridad
 
@@ -81,7 +90,7 @@ Llevan `data-pendiente` en el HTML y se muestran entre corchetes:
 
 ## Al conectar el dominio propio
 
-Las etiquetas `og:url` y `og:image` del `<head>` usan direcciones absolutas con `valle-petra.pages.dev`, porque WhatsApp e iMessage no aceptan rutas relativas. Cámbialas por el dominio nuevo. Las apps guardan la vista previa de cada enlace por un tiempo: para probar un cambio, comparte una variante como `…/?v=2`.
+Las etiquetas `og:url` y `og:image` del `<head>` (en `index.html` y `reservas.html`) usan direcciones absolutas con `valle-petra.pages.dev`, porque WhatsApp e iMessage no aceptan rutas relativas. Cámbialas por el dominio nuevo. Las apps guardan la vista previa de cada enlace por un tiempo: para probar un cambio, comparte una variante como `…/?v=2`.
 
 ## Reglas
 

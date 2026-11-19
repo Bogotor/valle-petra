@@ -715,26 +715,27 @@ html[data-theme="dark"] .lodge { box-shadow: 0 8px 24px rgba(0,0,0,.28), 0 2px 6
 
 .lodge-nav {
   /* Siempre visibles (en celular no existe el "pasar el mouse"), una a cada lado de la foto.
-     Fondo oscuro + borde crema: se distinguen sobre fotos claras y oscuras. 44 px = área táctil mínima. */
+     Discretas para no tapar la foto: círculo de 32 px semitransparente; el área táctil
+     llega a 44 px con el ::before invisible. */
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 44px; height: 44px;
+  width: 32px; height: 32px;
   padding: 0;
   border-radius: 999px;
-  border: 1px solid rgba(251,238,217,.45);
-  background: rgba(20,12,8,.55);
-  color: var(--on-photo);
+  border: 1px solid rgba(251,238,217,.22);
+  background: rgba(20,12,8,.32);
+  color: rgba(251,238,217,.9);
   display: inline-flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 10px rgba(20,12,8,.35);
   cursor: pointer;
-  transition: background-color .25s ease, border-color .25s ease, transform .25s ease;
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
   z-index: 3;
 }
-.lodge-nav:hover { background: rgba(20,12,8,.8); border-color: var(--on-photo); }
-.lodge-nav:active { transform: translateY(-50%) scale(.94); }
+.lodge-nav::before { content: ""; position: absolute; inset: -6px; border-radius: 999px; }
+.lodge-nav:hover { background: rgba(20,12,8,.6); border-color: rgba(251,238,217,.5); color: var(--on-photo); }
+.lodge-nav:active { transform: translateY(-50%) scale(.92); }
 .lodge-nav:focus-visible { outline: 2px solid var(--on-photo); outline-offset: 3px; }
-.lodge-nav.prev { left: 12px; }
-.lodge-nav.next { right: 12px; }
-.lodge-nav svg { width: 18px; height: 18px; }
+.lodge-nav.prev { left: 10px; }
+.lodge-nav.next { right: 10px; }
+.lodge-nav svg { width: 15px; height: 15px; filter: drop-shadow(0 1px 2px rgba(20,12,8,.5)); }
 
 .lodge-dots {
   position: absolute; bottom: 12px; left: 0; right: 0;
@@ -992,8 +993,11 @@ html[data-theme="dark"] .nearby-cell:hover { background: color-mix(in oklch, var
   transition: border-color .3s ease, transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s cubic-bezier(.2,.8,.2,1);
 }
 html[data-theme="dark"] .resv-card { box-shadow: 0 8px 24px rgba(0,0,0,.28), 0 2px 6px rgba(0,0,0,.18); }
-.resv-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 22px 50px rgba(42,31,26,.14), 0 3px 10px rgba(42,31,26,.06); }
-html[data-theme="dark"] .resv-card:hover { box-shadow: 0 22px 50px rgba(0,0,0,.45), 0 3px 10px rgba(0,0,0,.25); }
+/* Solo con mouse (ver .lodge:hover) */
+@media (hover: hover) {
+  .resv-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 22px 50px rgba(42,31,26,.14), 0 3px 10px rgba(42,31,26,.06); }
+  html[data-theme="dark"] .resv-card:hover { box-shadow: 0 22px 50px rgba(0,0,0,.45), 0 3px 10px rgba(0,0,0,.25); }
+}
 .resv-num {
   display: block;
   width: 44px;
@@ -1364,8 +1368,8 @@ body.lb-open { overflow: hidden; }
 .js .reveal.in, .js .stagger.in > * { will-change: auto; }
 
 /* ---------- Áreas táctiles de al menos 44 px de alto, sin cambiar el aspecto ---------- */
-/* .lodge-nav no va aquí: ya mide 44 px y necesita position: absolute (con relative, las flechas
-   quedaban juntas en el centro de la foto) */
+/* .lodge-nav no va aquí: necesita position: absolute (con relative, las flechas quedaban juntas
+   en el centro de la foto). Su área táctil se agranda junto a sus estilos. */
 .menu-btn, .lodge-dots button, .lightbox-dots button,
 .lodge-gallery-btn, .lodge-cta a, .wa-secondary { position: relative; }
 .menu-btn::before, .lodge-dots button::before, .lightbox-dots button::before,
@@ -1378,3 +1382,56 @@ body.lb-open { overflow: hidden; }
 .lightbox-dots button::before { inset: -19px -3px; }
 .lodge-gallery-btn::before { inset: -8px 0; }
 .lodge-cta a::before, .wa-secondary::before { inset: -5px 0; }
+
+/* ---------- Página de reservas (reservas.html) ----------
+   Usa el menú, el pie, las tarjetas .resv-card y el .wa-btn de la portada. */
+.page-intro { padding-top: clamp(140px, 16vw, 200px); min-height: 70vh; }
+.page-intro h1 { font-size: clamp(44px, 7vw, 96px); line-height: 1; }
+.canales { display: grid; gap: clamp(20px, 2.4vw, 28px); grid-template-columns: 1fr; }
+@media (min-width: 900px) { .canales { grid-template-columns: 1.2fr 1fr 1fr; } }
+.canal h2 { font-size: clamp(28px, 2.6vw, 34px); line-height: 1.1; }
+.canal > p { color: var(--fg-soft); font-size: 15px; line-height: 1.6; }
+.canal-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.canal-icon {
+  width: 48px; height: 48px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--surface-2); color: var(--accent);
+}
+.canal-icon svg { width: 22px; height: 22px; }
+.canal-tag {
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600;
+  color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 6px 12px;
+}
+/* Contorno de acento solo al interactuar: mouse encima (ver .resv-card:hover), toque en celular
+   (:active) o foco con teclado dentro de la tarjeta (:focus-within) */
+.resv-card:active, .resv-card:focus-within { border-color: var(--accent); }
+/* Botones al pie de cada tarjeta, alineados entre tarjetas */
+.canal-btn, .canal-pronto { margin-top: auto; align-self: flex-start; }
+.canal .wa-btn { padding: 12px 22px; gap: 12px; font-size: 16px; } /* 46 px de alto */
+.canal .wa-btn .arrow { width: 14px; height: 14px; }
+.canal-pronto {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+  border: 1px dashed var(--line-c); border-radius: 999px;
+  color: var(--fg-soft); font-size: 13px; font-style: italic;
+}
+html[data-theme="dark"] .canal-pronto { border-color: rgba(238,237,240,.25); }
+
+.canal-info {
+  margin-top: clamp(40px, 5vw, 64px);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px;
+  padding-block: 28px; border-top: 1px solid var(--line-c); border-bottom: 1px solid var(--line-c);
+}
+.canal-condiciones { display: flex; flex-wrap: wrap; gap: 20px 48px; margin: 0; }
+.canal-condiciones dt { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-soft); font-weight: 500; }
+.canal-condiciones dd { margin: 6px 0 0; font-family: var(--font-serif); font-size: 19px; }
+.canal-mas {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+  font-size: 14px; font-weight: 500; color: var(--fg);
+  border-bottom: 1px solid var(--line-c); transition: color .25s ease, border-color .25s ease;
+}
+.canal-mas:hover { color: var(--accent); border-color: var(--accent); }
+.canal-aviso {
+  margin-top: 32px; display: flex; gap: 14px; align-items: flex-start;
+  max-width: 70ch; color: var(--fg-soft); font-size: 14px; line-height: 1.6;
+}
+.canal-aviso svg { width: 22px; height: 22px; flex: none; color: var(--accent); margin-top: 1px; }

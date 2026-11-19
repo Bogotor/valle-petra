@@ -38,7 +38,7 @@ Este repo contiene el sitio web (landing de una página) y la identidad de marca
 - **Tipografía:** Fraunces (OFL) en títulos con `font-variation-settings: 'SOFT' 100, 'WONK' 1` y `font-optical-sizing: auto`; **Figtree** en texto (cambiada desde Inter el 2026-11-19 por ser muy neutra). El lema del encabezado va en Fraunces cursiva. La Fraunces de Google Fonts "estática" no trae SOFT/WONK: usar la variable completa.
 
 ## Decisiones técnicas
-- Landing de una sola página primero; multipágina más adelante.
+- Landing de una página más `reservas.html` (canales oficiales: WhatsApp, Airbnb y Booking; los perfiles de Airbnb y Booking están pendientes). El menú y el pie están duplicados en ambas páginas.
 - Fotos originales: **fuera del repo**, en la carpeta hermana `../valle-petra-fotos-originales/` (en el Mac: `~/Developer/portafolio/valle-petra-fotos-originales/`). Una subcarpeta por lugar: `02-domo_anku`, `03-domo-llu-llu`, `04-cabana-chanar`, `05-cabana-antay`, `06-cabana-cachi`, `07-piscina`, `08-quincho`, `09-fogon`, `10-tinas`, `11-jardines`; `Todas las fotos/` es una copia general. Las favoritas llevan el prefijo `TOP_`. Nunca modificar ni mover los originales.
 - En `site/img/` solo versiones web (WebP, AVIF opcional), de unos 1.600 px para tarjetas y 2.400 px para el encabezado, nombradas por lugar (`anku-01.webp`). **Quitar los metadatos EXIF, sobre todo la ubicación GPS**, antes de publicar.
 - Encabezado: dos recortes de la misma foto (ancho para escritorio, vertical para celular) con `<picture>` + `srcset` + `object-fit: cover`.
