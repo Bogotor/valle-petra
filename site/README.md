@@ -88,9 +88,11 @@ Llevan `data-pendiente` en el HTML y se muestran entre corchetes:
 - `index.html` lleva `<meta name="robots" content="noindex">` para que los buscadores no muestren el sitio mientras tenga fotos provisorias y datos pendientes. Quítalo cuando esté listo para clientes.
 - No bloquees el sitio con `robots.txt` (`Disallow`): el buscador dejaría de leer la página y no vería el `noindex`.
 
-## Al conectar el dominio propio
+## Dominio
 
-Las etiquetas `og:url` y `og:image` del `<head>` (en `index.html` y `reservas.html`) usan direcciones absolutas con `valle-petra.pages.dev`, porque WhatsApp e iMessage no aceptan rutas relativas. Cámbialas por el dominio nuevo. Las apps guardan la vista previa de cada enlace por un tiempo: para probar un cambio, comparte una variante como `…/?v=2`.
+El sitio se publica en `https://vallepetra.cl` (y `www.vallepetra.cl`), conectado como dominio propio del proyecto de Cloudflare Pages; `valle-petra.pages.dev` sigue funcionando.
+
+Las etiquetas `og:url` y `og:image` del `<head>` (en `index.html` y `reservas.html`) usan direcciones absolutas con `vallepetra.cl`, porque WhatsApp e iMessage no aceptan rutas relativas. Si el dominio cambia, hay que cambiarlas. Las apps guardan la vista previa de cada enlace por un tiempo: para probar un cambio, comparte una variante como `…/?v=2`.
 
 ## Reglas
 
