@@ -99,5 +99,5 @@ Python 3, Cloudflare Pages y DNS, NIC Chile, Git y GitHub. Usé Claude Code, un 
 
 ## Licencias
 
-La fuente Fraunces se distribuye bajo SIL Open Font License 1.1 (`tools/logo/fonts/OFL.txt`), y Figtree también bajo OFL.
+Las fuentes Fraunces y Figtree se distribuyen bajo la SIL Open Font License 1.1; sus licencias van junto a los archivos (`site/fonts/OFL-Fraunces.txt`, `site/fonts/OFL-Figtree.txt` y `tools/logo/fonts/OFL.txt`).
 El logo, las imágenes y el contenido de Valle Petra pertenecen a sus dueños y no se licencian para reutilizarse.

@@ -15,7 +15,7 @@ site/
 │   ├── tema.js           selector Día / Noche (va en <head> para que no parpadee)
 │   ├── animaciones.js    menú, aparición al bajar, escalonado y parallax
 │   └── galerias.js       carrusel de cada alojamiento y visor de galería
-├── fonts/                woff2 recortadas a latín
+├── fonts/                woff2 recortadas a latín, con sus licencias OFL
 ├── img/                  WebP sin metadatos (los genera tools/web/recursos.py)
 ├── _headers              cabeceras de seguridad que aplica Cloudflare Pages (no se publica)
 └── favicon.*, site.webmanifest
