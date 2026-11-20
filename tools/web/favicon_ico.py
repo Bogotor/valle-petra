@@ -1,11 +1,11 @@
-"""favicon.ico sin fondo: la estrella sola, con un borde crema fino.
+"""favicon.ico sin fondo: la estrella terracota sola, sin borde.
 
 Uso: python3 tools/web/favicon_ico.py
 
 Safari no lee favicons SVG y usa favicon.ico, que antes era la estrella sobre un
-cuadrado terracota. Este .ico lleva solo la estrella (fondo transparente). Como el
-.ico no puede cambiar de color según el modo del navegador (el SVG sí), la estrella
-es terracota con un borde crema: se distingue en pestañas claras y oscuras.
+cuadrado terracota. Este .ico lleva solo la estrella terracota (fondo transparente),
+igual que favicon.svg en modo claro. El .ico no cambia de color según el modo del
+navegador (el SVG sí); el terracota se distingue en pestañas claras y oscuras.
 
 Python puro, sin dependencias: dibuja la misma estrella de tools/logo/favicon.py
 (4 puntas, lados cóncavos) con antialiasing por supermuestreo y guarda un .ico con
@@ -20,9 +20,8 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 SALIDAS = [os.path.join(RAIZ, "site/favicon.ico"), os.path.join(RAIZ, "brand/favicon/favicon.ico")]
 TAMANOS = (16, 32, 48)
 TERRACOTA = (0xAA, 0x45, 0x29)
-CREMA = (0xFD, 0xEE, 0xDD)
 CINTURA = 0.28        # igual que el favicon SVG: puntas algo más gruesas para tamaños chicos
-R_BORDE, R_ESTRELLA = 31, 27   # en una grilla de 64: el borde crema mide ~4 unidades
+R_ESTRELLA = 30       # en una grilla de 64, como favicon.svg (puntas en 2 y 62)
 MUESTRAS = 4          # supermuestreo 4x4 por píxel
 
 
@@ -78,20 +77,9 @@ def png_rgba(n, filas):
 
 
 def icono(n):
-    borde, centro = cobertura(n, estrella(R_BORDE)), cobertura(n, estrella(R_ESTRELLA))
-    filas = []
-    for y in range(n):
-        fila = bytearray()
-        for x in range(n):
-            a_out, a_in = borde[y][x], centro[y][x]
-            if a_out == 0:
-                fila += b"\x00\x00\x00\x00"
-                continue
-            # terracota sobre crema dentro de la silueta; la silueta da la transparencia
-            k = a_in / a_out
-            rgb = [round(t * k + c * (1 - k)) for t, c in zip(TERRACOTA, CREMA)]
-            fila += bytes(rgb + [round(a_out * 255)])
-        filas.append(fila)
+    # color terracota en todo el cuadro; la silueta de la estrella da la transparencia
+    filas = [bytearray(b"".join(bytes(TERRACOTA) + bytes([round(a * 255)]) for a in fila))
+             for fila in cobertura(n, estrella(R_ESTRELLA))]
     return png_rgba(n, filas)
 
 
