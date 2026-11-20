@@ -14,9 +14,17 @@
 #   dice el dominio de origen, no la dirección completa.
 # Permissions-Policy: apaga cámara, micrófono, ubicación, pagos y USB, que la
 #   página no usa, también para el iframe del mapa.
+# Strict-Transport-Security (HSTS): después de la primera visita por HTTPS, el
+#   navegador recuerda por 1 año (31536000 s) que vallepetra.cl solo se abre con
+#   HTTPS y ya no intenta HTTP, ni siquiera si alguien escribe http:// o una red
+#   intenta degradar la conexión. Sin includeSubDomains ni preload: así un
+#   subdominio futuro (p. ej. el motor de reservas) no queda obligado a HTTPS
+#   antes de tiempo, y no se entra a la lista precargada de los navegadores,
+#   que cuesta revertir. Los navegadores ignoran esta cabecera si llega por HTTP.
 /*
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000
